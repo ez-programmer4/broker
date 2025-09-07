@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navigation } from "@/components/navigation";
 import { prisma } from "@/lib/prisma";
@@ -14,9 +15,9 @@ interface SearchParams {
 export default async function PropertiesPage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
-  const { search, type, city } = searchParams;
+  const { search, type, city } = await searchParams;
 
   const where: any = { status: "ACTIVE" };
 
@@ -141,10 +142,11 @@ export default async function PropertiesPage({
                 <Card className="group overflow-hidden border-0 shadow-lg bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer">
                   <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
                     {property.images[0] ? (
-                      <img
+                      <Image
                         src={property.images[0].url}
                         alt={property.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">

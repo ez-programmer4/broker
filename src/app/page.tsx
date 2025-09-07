@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Navigation } from "@/components/navigation";
@@ -45,7 +46,7 @@ export default async function HomePage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-6 py-3 mb-8">
             <Star className="h-4 w-4 text-yellow-400" />
-            <span className="text-sm font-medium">Ethiopia's #1 Real Estate Platform</span>
+            <span className="text-sm font-medium">Ethiopia&apos;s #1 Real Estate Platform</span>
           </div>
           
           {/* Main Heading */}
@@ -61,7 +62,7 @@ export default async function HomePage() {
           
           {/* Subtitle */}
           <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto text-blue-100/90 leading-relaxed font-light">
-            Connect with Ethiopia's most trusted real estate brokers and discover premium properties 
+            Connect with Ethiopia&apos;s most trusted real estate brokers and discover premium properties 
             across Addis Ababa, Dire Dawa, and beyond
           </p>
           
@@ -114,7 +115,7 @@ export default async function HomePage() {
               Trusted by Thousands Across Ethiopia
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Join Ethiopia's fastest-growing real estate community
+              Join Ethiopia&apos;s fastest-growing real estate community
             </p>
           </div>
           
@@ -193,7 +194,7 @@ export default async function HomePage() {
               </span>
             </h2>
             <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-              Handpicked premium properties from Ethiopia's most trusted real estate professionals. 
+              Handpicked premium properties from Ethiopia&apos;s most trusted real estate professionals. 
               Each property is verified and comes with our quality guarantee.
             </p>
           </div>
@@ -213,10 +214,11 @@ export default async function HomePage() {
                   <Card className="group overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 cursor-pointer border-0 shadow-lg bg-white rounded-3xl">
                     <div className="aspect-[4/3] bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden">
                       {property.images[0] ? (
-                        <img 
+                        <Image 
                           src={property.images[0].url} 
                           alt={property.title}
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125"
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-125"
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
@@ -326,8 +328,8 @@ export default async function HomePage() {
           </h2>
           
           <p className="text-xl md:text-2xl mb-16 text-blue-100/90 max-w-4xl mx-auto leading-relaxed font-light">
-            Join Ethiopia's most trusted real estate platform. Whether you're buying your dream home 
-            or growing your brokerage business, we're here to help you succeed.
+            Join Ethiopia&apos;s most trusted real estate platform. Whether you&apos;re buying your dream home 
+            or growing your brokerage business, we&apos;re here to help you succeed.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-8 justify-center mb-16">

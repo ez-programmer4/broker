@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Navigation } from "@/components/navigation";
 import { InquiryForm } from "./inquiry-form";
@@ -6,9 +7,10 @@ import { prisma } from "@/lib/prisma";
 import { formatPrice, formatDate } from "@/lib/utils";
 import { MapPin, DollarSign, Home, Calendar, User, Phone, Mail } from "lucide-react";
 
-export default async function PropertyPage({ params }: { params: { id: string } }) {
+export default async function PropertyPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const property = await prisma.property.findUnique({
-    where: { id: parseInt(params.id) },
+    where: { id: parseInt(id) },
     include: {
       images: true,
       broker: {
@@ -34,10 +36,11 @@ export default async function PropertyPage({ params }: { params: { id: string } 
             <div className="mb-6">
               {property.images.length > 0 ? (
                 <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src={property.images[0].url}
                     alt={property.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               ) : (

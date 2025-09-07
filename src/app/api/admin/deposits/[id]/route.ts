@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -12,7 +12,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
 
     const { action, adminNotes } = await req.json();
-    const depositId = parseInt(params.id);
+    const { id } = await params;
+    const depositId = parseInt(id);
     const adminId = parseInt((session.user as any).id);
 
     if (!["verify", "reject"].includes(action)) {

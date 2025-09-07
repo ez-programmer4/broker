@@ -3,9 +3,10 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const property = await prisma.property.findUnique({
-    where: { id: parseInt(params.id) },
+    where: { id: parseInt(id) },
     include: {
       images: true,
       broker: { select: { name: true, email: true, brokerProfile: true } },
@@ -19,7 +20,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   return NextResponse.json(property);
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
   
   if (!session) {
@@ -27,7 +28,8 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 
   const data = await req.json();
-  const propertyId = parseInt(params.id);
+  const { id } = await params;
+  const propertyId = parseInt(id);
   const userId = parseInt((session.user as any).id);
 
   // Check ownership
@@ -50,14 +52,15 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   return NextResponse.json(updated);
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
   
   if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const propertyId = parseInt(params.id);
+  const { id } = await params;
+  const propertyId = parseInt(id);
   const userId = parseInt((session.user as any).id);
 
   const property = await prisma.property.findUnique({

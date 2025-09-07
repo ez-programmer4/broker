@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 import { formatPrice } from "@/lib/utils";
 import { Building, Plus, Edit, Trash2 } from "lucide-react";
 
@@ -50,10 +51,11 @@ export default async function BrokerPropertiesPage() {
               <Card key={property.id} className="overflow-hidden">
                 <div className="aspect-video bg-gray-200 relative">
                   {property.images[0] ? (
-                    <img
+                    <Image
                       src={property.images[0].url}
                       alt={property.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">

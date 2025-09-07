@@ -56,7 +56,7 @@ export default async function BrokerDashboard() {
                 <div>
                   <p className="font-medium text-yellow-800">Account Pending Approval</p>
                   <p className="text-sm text-yellow-700">
-                    Your account is pending admin approval. Properties won't be visible until approved.
+                    Your account is pending admin approval. Properties won&apos;t be visible until approved.
                   </p>
                 </div>
               </div>

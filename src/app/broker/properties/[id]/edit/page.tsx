@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-export default function EditPropertyPage({ params }: { params: { id: string } }) {
+export default function EditPropertyPage({ params }: { params: Promise<{ id: string }> }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -27,7 +27,8 @@ export default function EditPropertyPage({ params }: { params: { id: string } })
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const res = await fetch(`/api/properties/${params.id}`);
+        const resolvedParams = await params;
+        const res = await fetch(`/api/properties/${resolvedParams.id}`);
         if (res.ok) {
           const property = await res.json();
           setFormData({
@@ -50,14 +51,15 @@ export default function EditPropertyPage({ params }: { params: { id: string } })
     };
 
     fetchProperty();
-  }, [params.id]);
+  }, [params]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/properties/${params.id}`, {
+      const resolvedParams = await params;
+      const res = await fetch(`/api/properties/${resolvedParams.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

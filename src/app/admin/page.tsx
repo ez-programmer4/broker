@@ -230,7 +230,7 @@ export default async function AdminDashboard() {
                         </div>
                         <div>
                           <p className="font-semibold text-gray-900">{deposit.broker.name}</p>
-                          <p className="text-sm font-medium text-gray-700">${deposit.amount} {deposit.currency}</p>
+                          <p className="text-sm font-medium text-gray-700">${Number(deposit.amount)} {deposit.currency}</p>
                           {deposit.bankName && (
                             <p className="text-xs text-gray-500 font-medium">{deposit.bankName}</p>
                           )}
